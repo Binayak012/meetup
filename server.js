@@ -38,6 +38,10 @@ io.on('connection', socket => {
       socket.to(roomId).emit('user-disconnected', userId);
     });
   });
+
+  socket.on('send-message', (roomId, message, userName) => {
+    io.to(roomId).emit('receive-message', message, userName, Date.now());
+  });
 });
 
 // Serve room.html for any /:room path (must come after static middleware)
